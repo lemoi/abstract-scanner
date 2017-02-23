@@ -1,10 +1,10 @@
 const path = require('path');
 
 module.exports = {
-    entry: path.join(__dirname, "/src/index.js"),
+    entry: path.join(__dirname, "/lib/index.js"),
     output: {
-        path: path.join(__dirname, "/dist"),
-        filename: "abstract-scanner.js",
+        path: path.join(__dirname, "/lib"),
+        filename: "abstract-scanner.umd.js",
         libraryTarget: "umd",
         library: "abs"
     }

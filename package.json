@@ -1,14 +1,15 @@
 {
   "name": "abstract-scanner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Universal scanner for lexical analysis.",
-  "main": "dist/abstract-scanner.js",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
-    "compile": "tsc",
+    "compile": "tsc src/*.ts -d --outDir lib",
     "lint": "tslint src/*.ts",
-    "build": "npm run compile && webpack",
-    "clear": "rm src/*.js",
-    "prepublish": "npm run build && npm run clear"
+    "build": "npm run lint && npm run compile && webpack",
+    "clean": "rm lib/*",
+    "prepublish": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",

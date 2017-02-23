@@ -8,6 +8,5 @@
         "strictNullChecks": true,
         "noImplicitAny": true,
         "noUnusedParameters": true
-    },
-    "include": ["src/*.ts"]
+    }
 }
