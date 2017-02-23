@@ -1,0 +1,31 @@
+{
+  "name": "abstract-scanner",
+  "version": "1.0.0",
+  "description": "Universal scanner for lexical analysis.",
+  "main": "dist/abstract-scanner.js",
+  "scripts": {
+    "compile": "tsc",
+    "lint": "tslint src/*.ts",
+    "build": "npm run compile && webpack",
+    "clear": "rm src/*.js",
+    "prepublish": "npm run build && npm run clear"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lemoi/abstract-scanner.git"
+  },
+  "author": "Wyatt",
+  "keywords": [
+    "vpp"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lemoi/abstract-scanner/issues"
+  },
+  "homepage": "https://github.com/lemoi/abstract-scanner#readme",
+  "devDependencies": {
+    "tslint": "^4.4.2",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1"
+  }
+}
