@@ -1,6 +1,9 @@
 # abstract-scanner
 Universal scanner for lexical analysis.
 
+The whole program are written with `typescript`, but it's ok to use it as a common nodejs module.
+Of course, you can find the `umd` version of this module in `lib/*`.
+
 ###Install
 ```
 npm install abstract-scanner --save
