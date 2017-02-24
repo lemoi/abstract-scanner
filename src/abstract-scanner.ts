@@ -90,6 +90,13 @@ export abstract class AbstractScanner {
         }
     }
 
+    /* tslint:disable:no-bitwise */
+    fromCodePoint(cp: number): string {
+        return (cp < 0x10000) ? String.fromCharCode(cp) :
+            String.fromCharCode(0xD800 + ((cp - 0x10000) >> 10)) +
+            String.fromCharCode(0xDC00 + ((cp - 0x10000) & 1023));
+    }
+    
     getCodePoint(offset: number = 0): number {
         const index = this.marker.index + offset;
         const first = this.source.charCodeAt(index);

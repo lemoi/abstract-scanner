@@ -47,6 +47,7 @@ abstract class AbstractScanner {
     peek(length?: number): string;
     move(offset?: number): void;
     moveWhen(judge: (cp: number) => boolean): void;
+    fromCodePoint(cp: number): string;
     getCodePoint(offset?: number): number;
     getCharCode(offset?: number): number;
     abstract nexToken(): Token | null;
@@ -56,7 +57,16 @@ abstract class AbstractScanner {
 Scan the [NumericLiteral](https://tc39.github.io/ecma262/#sec-literals-numeric-literals) of javascript.
 
 ```js
-import { Token, AbstractScanner} from 'abstract-scanner';
+import { Token, AbstractScanner } from 'abstract-scanner';
+
+const utils = {
+    isHexDigit(cp: number): boolean {
+        return (cp >= 0x30 && cp <= 0x39) ||    // 0..9
+            (cp >= 0x41 && cp <= 0x46) ||       // A..F
+            (cp >= 0x61 && cp <= 0x66);         // a..f
+    },
+    ...
+}
 
 class Scanner extends AbstractScanner {
     scanHexLiteral(): Token | null {
@@ -69,7 +79,7 @@ class Scanner extends AbstractScanner {
             if (this.getScanLength() === 2) {
                 return this.constructInvaildToken();
             } else {
-                const token = this.constructToken(TokenType.NumericLiteral);
+                const token = this.constructToken('NumericLiteral');
                 token.value = parseInt(token.source, 16);
                 return token;
             }
