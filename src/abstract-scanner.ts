@@ -85,7 +85,7 @@ export abstract class AbstractScanner {
     }
 
     moveWhen(judge: (cp: number) => boolean): void {
-        while (judge(this.getCharCode()) && !this.eof()) {
+        while (judge(this.getCodePoint()) && !this.eof()) {
             this.move();
         }
     }
