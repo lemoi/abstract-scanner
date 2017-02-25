@@ -1,5 +1,6 @@
 import { Position } from './source-location';
 import { Token } from './token';
+import * as utils from './utils';
 
 export abstract class AbstractScanner {
     readonly source: string;
@@ -112,6 +113,41 @@ export abstract class AbstractScanner {
 
     getCharCode(offset: number = 0): number {
         return this.source.charCodeAt(this.marker.index + offset);
+    }
+
+    scanLineTerminator(): string {
+        let str = '';
+        const cp = this.getCharCode();
+        if (utils.isLineTerminator(cp)) {
+            if (cp === 0x0D && this.getCharCode(1) === 0x0A) {
+                str = '\r\n';
+                this.move(2);
+            } else {
+                str = String.fromCharCode(cp);
+                this.move();
+            }
+            this.marker.line++;
+            this.marker.column = 1;
+        }
+        return str;
+    }
+
+    scanBlankSpace(): string {
+        let str = '';
+        let cp = this.getCharCode();
+        while (utils.isWhiteSpace(cp) && !this.eof()) {
+            str += String.fromCharCode(cp);
+            this.move();
+            cp = this.getCharCode();
+        }
+        return str;
+    }
+    
+    skipSpace(): void {
+        while (!this.eof()) {
+            this.scanBlankSpace();
+            this.scanLineTerminator();
+        }
     }
 
     abstract nexToken(): Token | null;

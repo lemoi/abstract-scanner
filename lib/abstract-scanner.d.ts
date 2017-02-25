@@ -22,5 +22,8 @@ export declare abstract class AbstractScanner {
     fromCodePoint(cp: number): string;
     getCodePoint(offset?: number): number;
     getCharCode(offset?: number): number;
+    scanLineTerminator(): string;
+    scanBlankSpace(): string;
+    skipSpace(): void;
     abstract nexToken(): Token | null;
 }
