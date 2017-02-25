@@ -2,3 +2,4 @@ tslint.json
 tsconfig.json
 webpack.config.js
 src/
+scripts/

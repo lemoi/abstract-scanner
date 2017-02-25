@@ -145,8 +145,9 @@ export abstract class AbstractScanner {
     
     skipSpace(): void {
         while (!this.eof()) {
-            this.scanBlankSpace();
-            this.scanLineTerminator();
+            if (!(this.scanBlankSpace() + this.scanLineTerminator())) {
+                break;
+            }
         }
     }
 
