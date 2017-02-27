@@ -66,7 +66,7 @@ export abstract class AbstractScanner {
         throw new Error('The function `startScan` or `endScan` might not have been called. ');
     }
 
-    constructInvaildToken(message: string | string[] = 'Invalid or unexpected token. '): Token {
+    constructInvaildToken(message: string | string[] = 'Invalid token. '): Token {
         const token = this.constructToken('Invaild');
         token.message = message;
         return token;
@@ -85,9 +85,13 @@ export abstract class AbstractScanner {
         this.marker.column += offset;
     }
 
-    moveWhen(judge: (cp: number) => boolean): void {
-        while (judge(this.getCodePoint()) && !this.eof()) {
-            this.move();
+    moveWhen(judge: (cp: number, ch?: string) => boolean): void {
+        let cp = this.getCodePoint();
+        let ch = this.fromCodePoint(cp);
+        while (!this.eof() && judge(cp, ch)) {
+            this.move(ch.length);
+            cp = this.getCodePoint();
+            ch = this.fromCodePoint(cp);
         }
     }
 

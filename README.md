@@ -55,7 +55,7 @@ abstract class AbstractScanner {
     eof(): boolean;
     peek(length?: number): string;
     move(offset?: number): void;
-    moveWhen(judge: (cp: number) => boolean): void;
+    moveWhen(judge: (cp: number, ch?: string) => boolean): void;
     fromCodePoint(cp: number): string;
     getCodePoint(offset?: number): number;
     getCharCode(offset?: number): number;

@@ -1,6 +1,6 @@
 {
   "name": "abstract-scanner",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Universal scanner for lexical analysis.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
