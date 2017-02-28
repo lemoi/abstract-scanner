@@ -86,12 +86,13 @@ export abstract class AbstractScanner {
     }
 
     moveWhen(judge: (cp: number, ch?: string) => boolean): void {
-        let cp = this.getCodePoint();
-        let ch = this.fromCodePoint(cp);
-        while (!this.eof() && judge(cp, ch)) {
+        while (!this.eof()) {
+            const cp = this.getCodePoint();
+            const ch = this.fromCodePoint(cp);
+            if (!judge(cp, ch)) {
+                break;
+            }
             this.move(ch.length);
-            cp = this.getCodePoint();
-            ch = this.fromCodePoint(cp);
         }
     }
 
@@ -106,7 +107,7 @@ export abstract class AbstractScanner {
         const index = this.marker.index + offset;
         const first = this.source.charCodeAt(index);
         let cp = first;
-        if (first >= 0xD800 && first <= 0xDBFF && !this.eof()) {
+        if (first >= 0xD800 && first <= 0xDBFF) {
             const second = this.source.charCodeAt(index + 1);
             if (second >= 0xDC00 && second <= 0xDFFF) {
                 cp = (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000;
@@ -139,9 +140,12 @@ export abstract class AbstractScanner {
     scanBlankSpace(): string {
         let str = '';
         let cp = this.getCharCode();
-        while (utils.isWhiteSpace(cp) && !this.eof()) {
+        while (utils.isWhiteSpace(cp)) {
             str += String.fromCharCode(cp);
             this.move();
+            if (this.eof()) {
+                break;
+            }
             cp = this.getCharCode();
         }
         return str;
@@ -149,7 +153,7 @@ export abstract class AbstractScanner {
     
     skipSpace(): void {
         while (!this.eof()) {
-            if (!(this.scanBlankSpace() + this.scanLineTerminator())) {
+            if (!this.scanBlankSpace() && !this.scanLineTerminator()) {
                 break;
             }
         }

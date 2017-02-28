@@ -22,15 +22,18 @@ function generate(what) {
     }
     let start = set[i];
     result.push(toHex(start));
-    while (i < length - 1) {
-        i++;
-        start++;
+    i++;
+    start++;
+    while (i < length) {
         if (start !== set[i]) {
             result.push(toHex(start - 1));
             result.push(toHex(set[i]));
             start = set[i];
         }
+        i++;
+        start++;
     }
+    result.push(toHex(start - 1));
     return result;
 }
 
