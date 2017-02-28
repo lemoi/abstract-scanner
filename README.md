@@ -96,7 +96,7 @@ class Scanner extends AbstractScanner {
             this.moveWhen(cp => utils.isHexDigit(cp));
             this.endScan();
             if (this.getScanLength() === 2) {
-                return this.constructInvaildToken();
+                return this.constructIllegalToken();
             } else {
                 const token = this.constructToken('NumericLiteral');
                 token.value = parseInt(token.source, 16);
