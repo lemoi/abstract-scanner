@@ -51,7 +51,7 @@ abstract class AbstractScanner {
     clear(): void;
     getScanLength(): number;
     constructToken(type: string): Token;
-    constructInvaildToken(message?: string | string[]): Token;
+    constructIllegalToken(message?: string | string[]): Token;
     eof(): boolean;
     peek(length?: number): string;
     move(offset?: number): void;

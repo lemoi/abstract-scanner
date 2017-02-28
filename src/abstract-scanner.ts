@@ -66,8 +66,8 @@ export abstract class AbstractScanner {
         throw new Error('The function `startScan` or `endScan` might not have been called. ');
     }
 
-    constructInvaildToken(message: string | string[] = 'Invalid token. '): Token {
-        const token = this.constructToken('Invaild');
+    constructIllegalToken(message: string | string[] = 'Illegal token. '): Token {
+        const token = this.constructToken('ILLEGAL');
         token.message = message;
         return token;
     }
