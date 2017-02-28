@@ -10,10 +10,10 @@ npm install abstract-scanner --save
 ```
 
 ###Exports
-- Token: scan result wrapper.
-- AbstractScanner: abstract scanner needed to be extended. 
-- utils: namespace of some helpful functions .
-- version: project version.
+- `Token`: scan result wrapper.
+- `AbstractScanner`: abstract scanner needed to be extended. 
+- `utils`: namespace of some helpful functions .
+- `version`: project version.
 
 ###Interface
 ```js

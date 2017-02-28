@@ -155,5 +155,5 @@ export abstract class AbstractScanner {
         }
     }
 
-    abstract nexToken(): Token | null;
+    abstract nextToken(): Token | null;
 }
