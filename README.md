@@ -62,7 +62,7 @@ abstract class AbstractScanner {
     scanLineTerminator(): string;
     scanBlankSpace(): string;
     skipSpace(): void;
-    abstract nexToken(): Token | null;
+    abstract nextToken(): Token | null;
 }
 
 namespace utils {
