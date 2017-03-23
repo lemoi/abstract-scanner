@@ -82,7 +82,10 @@ namespace utils {
 }
 ```
 ###Example
-Scan the [NumericLiteral](https://tc39.github.io/ecma262/#sec-literals-numeric-literals) of javascript.
+
+A full version scanner of tokenzing javascript is in directory `examples/`.
+
+For an illustrative purpose, here's an example of how to scan the [NumericLiteral](https://tc39.github.io/ecma262/#sec-literals-numeric-literals) of javascript.
 
 ```js
 import { Token, AbstractScanner, utils } from 'abstract-scanner';
