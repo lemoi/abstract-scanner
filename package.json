@@ -9,7 +9,8 @@
     "lint": "tslint src/*.ts & tslint examples/*.ts",
     "build": "npm run lint && npm run compile && webpack",
     "clean": "rm lib/*",
-    "verify": "npm run clean && npm run build"
+    "verify": "npm run clean && npm run build",
+    "test": "node test/test-scanner.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/lemoi/abstract-scanner#readme",
   "devDependencies": {
+    "everything.js": "^1.0.3",
     "tslint": "^4.4.2",
     "typescript": "^2.2.1",
     "unicode-9.0.0": "^0.7.0",
