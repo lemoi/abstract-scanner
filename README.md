@@ -4,18 +4,18 @@ Universal scanner for lexical analysis.
 The whole project are written with `typescript`, but it's ok to use it as a common nodejs module.
 Of course, you can find the `umd` version of this module in `lib/*`.
 
-###Install
+### Install
 ```
 npm install abstract-scanner --save
 ```
 
-###Exports
+### Exports
 - `Token`: scan result wrapper.
 - `AbstractScanner`: abstract scanner needed to be extended. 
 - `utils`: namespace of some helpful functions .
 - `version`: project version.
 
-###Interface
+### Interface
 ```js
 class Token {
     type: string;
@@ -81,7 +81,8 @@ namespace utils {
     };
 }
 ```
-###Example
+
+### Example
 
 A full version scanner of tokenzing javascript is in directory `examples/`.
 
