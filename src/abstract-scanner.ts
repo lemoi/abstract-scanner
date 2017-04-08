@@ -85,11 +85,12 @@ export abstract class AbstractScanner {
         this.marker.column += offset;
     }
 
-    moveWhen(judge: (cp: number, ch?: string) => boolean): void {
+    // note: here is charCode but not codePoint
+    moveWhen(judge: (cc: number, ch?: string) => boolean): void {
         while (!this.eof()) {
-            const cp = this.getCodePoint();
-            const ch = this.fromCodePoint(cp);
-            if (!judge(cp, ch)) {
+            const ch = this.peek();
+            const cc = ch.charCodeAt(0);
+            if (!judge(cc, ch)) {
                 break;
             }
             this.move(ch.length);
@@ -102,7 +103,11 @@ export abstract class AbstractScanner {
             String.fromCharCode(0xD800 + ((cp - 0x10000) >> 10)) +
             String.fromCharCode(0xDC00 + ((cp - 0x10000) & 1023));
     }
-    
+
+    fromCharCode(cc: number): string {
+        return String.fromCharCode(cc);
+    }
+
     getCodePoint(offset: number = 0): number {
         const index = this.marker.index + offset;
         const first = this.source.charCodeAt(index);
@@ -122,13 +127,13 @@ export abstract class AbstractScanner {
 
     scanLineTerminator(): string {
         let str = '';
-        const cp = this.getCharCode();
-        if (utils.isLineTerminator(cp)) {
-            if (cp === 0x0D && this.getCharCode(1) === 0x0A) {
+        const cc = this.getCharCode();
+        if (utils.isLineTerminator(cc)) {
+            if (cc === 0x0D && this.getCharCode(1) === 0x0A) {
                 str = '\r\n';
                 this.move(2);
             } else {
-                str = String.fromCharCode(cp);
+                str = this.fromCharCode(cc);
                 this.move();
             }
             this.marker.line++;
@@ -139,25 +144,21 @@ export abstract class AbstractScanner {
 
     scanBlankSpace(): string {
         let str = '';
-        let cp = this.getCharCode();
-        while (utils.isWhiteSpace(cp)) {
-            str += String.fromCharCode(cp);
+        let cc = this.getCharCode();
+        while (utils.isWhiteSpace(cc)) {
+            str += this.fromCharCode(cc);
             this.move();
             if (this.eof()) {
                 break;
             }
-            cp = this.getCharCode();
+            cc = this.getCharCode();
         }
         return str;
     }
     
     skipSpace(): void {
-        while (!this.eof()) {
-            if (!this.scanBlankSpace() && !this.scanLineTerminator()) {
-                break;
-            }
-        }
+        while (!this.eof() &&
+            (this.scanBlankSpace().length > 0 ||
+            this.scanLineTerminator().length > 0));
     }
-
-    abstract nextToken(): Token | null;
 }

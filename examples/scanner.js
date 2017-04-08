@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var _1 = require("../");
-/**
+/*
    An example of tokenizing JavaScript.
    This scanner will ignore errors and regard the invaild literal as
    a token with type `ILLEGAL`.

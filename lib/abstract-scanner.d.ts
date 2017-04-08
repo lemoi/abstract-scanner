@@ -18,12 +18,12 @@ export declare abstract class AbstractScanner {
     eof(): boolean;
     peek(length?: number): string;
     move(offset?: number): void;
-    moveWhen(judge: (cp: number, ch?: string) => boolean): void;
+    moveWhen(judge: (cc: number, ch?: string) => boolean): void;
     fromCodePoint(cp: number): string;
+    fromCharCode(cc: number): string;
     getCodePoint(offset?: number): number;
     getCharCode(offset?: number): number;
     scanLineTerminator(): string;
     scanBlankSpace(): string;
     skipSpace(): void;
-    abstract nextToken(): Token | null;
 }
