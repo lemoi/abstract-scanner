@@ -6,7 +6,7 @@ export declare abstract class AbstractScanner {
     marker: Position;
     private scanStartingMarker;
     private scanEndingMarker;
-    constructor(source: string);
+    constructor(source: string, pos?: Position);
     saveState(): Position;
     restoreState(state: Position): void;
     startScan(): void;

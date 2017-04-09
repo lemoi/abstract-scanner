@@ -9,14 +9,26 @@ export abstract class AbstractScanner {
     private scanStartingMarker: Position | null;
     private scanEndingMarker: Position | null;
 
-    constructor(source: string) {
+    constructor(source: string, pos?: Position) {
         this.source = source;
         this.length = source.length;
-        this.marker = {
-            index: 0,
-            line: this.length > 0 ? 1 : 0,
-            column: this.length > 0 ? 1 : 0
-        };
+        if (pos) {
+            this.marker = {
+                index: pos.index,
+                line: pos.line,
+                column: pos.column
+            };
+        } else {
+            this.marker = {
+                index: 0,
+                line: 1,
+                column: 1
+            };
+            if (this.length === 0) {
+                this.marker.line = 0;
+                this.marker.column = 0;
+            }
+        }
         this.scanStartingMarker = null;
         this.scanEndingMarker = null;
     }
