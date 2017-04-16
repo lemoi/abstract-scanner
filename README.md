@@ -37,14 +37,14 @@ interface SourceLocation {
     readonly end: Position;
 }
 
-export interface Config {
+interface Config {
     line?: number;
     column?: number;
     start?: number;
     end?: number;
 }
 
-export abstract class AbstractScanner {
+abstract class AbstractScanner {
     readonly source: string;
     readonly length: number;
     marker: Position;

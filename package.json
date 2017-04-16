@@ -1,13 +1,13 @@
 {
   "name": "abstract-scanner",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Universal scanner for lexical analysis.",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
     "compile": "node scripts/generate-identifier-ranges.js && tsc src/*.ts -d --outDir lib && tsc examples/*.ts",
     "lint": "tslint src/*.ts & tslint examples/*.ts",
-    "build": "npm run lint && npm run compile && webpack",
+    "build": "npm run compile && webpack",
     "clean": "rm lib/*",
     "verify": "npm run clean && npm run build",
     "test": "node test/test-scanner.js"
