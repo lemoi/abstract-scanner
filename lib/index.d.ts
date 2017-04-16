@@ -1,5 +1,5 @@
 import * as utils from './utils';
-export { AbstractScanner } from './abstract-scanner';
+export { AbstractScanner, Config } from './abstract-scanner';
 export { Token } from './token';
 export { utils };
-export declare const version = "2.0.1";
+export declare const version = "2.0.2";
