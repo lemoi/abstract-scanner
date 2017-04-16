@@ -2,6 +2,13 @@ import { Position } from './source-location';
 import { Token } from './token';
 import * as utils from './utils';
 
+export interface Config {
+    line?: number;
+    column?: number;
+    start?: number;
+    end?: number;
+}
+
 export abstract class AbstractScanner {
     readonly source: string;
     readonly length: number;
@@ -9,25 +16,33 @@ export abstract class AbstractScanner {
     private scanStartingMarker: Position | null;
     private scanEndingMarker: Position | null;
 
-    constructor(source: string, pos?: Position) {
+    constructor(source: string, config?: Config) {
         this.source = source;
-        this.length = source.length;
-        if (pos) {
-            this.marker = {
-                index: pos.index,
-                line: pos.line,
-                column: pos.column
-            };
-        } else {
-            this.marker = {
-                index: 0,
-                line: 1,
-                column: 1
-            };
-            if (this.length === 0) {
-                this.marker.line = 0;
-                this.marker.column = 0;
+        this.marker = {
+            index: 0,
+            line: 1,
+            column: 1
+        };
+        this.length = this.source.length;
+
+        if (config) {
+            if (config.start !== undefined) {
+                this.marker.index = config.start;
             }
+            if (config.line !== undefined) {
+                this.marker.line = config.line;
+            }
+            if (config.column !== undefined) {
+                this.marker.column = config.column;
+            }
+            if (config.end !== undefined) {
+                this.length = config.end - this.marker.index;
+            }
+        }
+
+        if (this.length === 0) {
+            this.marker.line = 0;
+            this.marker.column = 0;
         }
         this.scanStartingMarker = null;
         this.scanEndingMarker = null;
@@ -61,6 +76,13 @@ export abstract class AbstractScanner {
     getScanLength(): number {
         if (this.scanStartingMarker !== null) {
             return this.marker.index - this.scanStartingMarker.index;
+        }
+        throw new Error('The scan has not been started. ');
+    }
+
+    getScanResult(): string {
+        if (this.scanStartingMarker !== null) {
+            return this.source.substring(this.scanStartingMarker.index, this.marker.index);
         }
         throw new Error('The scan has not been started. ');
     }

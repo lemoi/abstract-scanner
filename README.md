@@ -37,8 +37,6 @@ interface SourceLocation {
     readonly end: Position;
 }
 
-import { Position } from './source-location';
-import { Token } from './token';
 export declare abstract class AbstractScanner {
     readonly source: string;
     readonly length: number;
